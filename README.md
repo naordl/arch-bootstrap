@@ -1,4 +1,4 @@
-# Dotfiles
+# DABS (Demo's Arch Bootstrapping Script)
 
 ## Usage
 
