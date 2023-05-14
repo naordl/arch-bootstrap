@@ -261,7 +261,7 @@ install_aestethics() { \
 	fi
 
 	# Install my theme collection
-	tput setaf 2; printf "Install themes.\n"; tput sgr0
+	tput setaf 2; printf "Installing themes.\n"; tput sgr0
 	git clone https://github.com/demo2k20/themes.git $SOURCEDIR/themes
 	sudo ln -srv $SOURCEDIR/themes/* /usr/share/themes
 
