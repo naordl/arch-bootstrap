@@ -29,7 +29,7 @@ install_dialog
 clone_dots() { \
 	tput setaf 2; printf "Cloning dotfiles repository.\n"; tput sgr0
 	mkdir -p "$SOURCEDIR"
-	git clone https://github.com/demo2k20/dots.git "$SOURCEDIR"
+	git clone https://github.com/demo2k20/dots.git "$DOTDIR"
 }
 
 # Confirm installation
