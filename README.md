@@ -9,5 +9,5 @@
 
 ### Instructions
 - Make the shell script executable using the following command: `chmod +x dabs.sh`.
-- Execute the script `.\dabs.sh`.
+- Execute the script with the following command: `./dabs.sh`.
 - Follow on-screen instructions.
