@@ -4,6 +4,7 @@
 # You can edit these if you prefer, though it's not recommended
 SOURCEDIR="$HOME/.local/src"
 DOTDIR="$SOURCEDIR/dots"
+unset GIT_CONFIG
 
 #######################
 # PRE-INSTALL SECTION #
@@ -308,7 +309,7 @@ install_software() { \
 	unclutter="unclutter"
 	locate="mlocate"
 	manuals="man-db man-pages"
-	documents="libreoffice-fresh hunspell-en_us hunspell-hu hunspell-ro texlive-most pandoc" # AUR
+	documents="libreoffice-fresh hunspell-en_us hunspell-hu hunspell-ro texlive-basic pandoc" # AUR
 	spreadsheets="libxlsxwriter sc-im-git" # AUR
 	ocr="tesseract tesseract-data-eng tesseract-data-hun tesseract-data-ron" # AUR
 	fstools="dosfstools mtools simple-mtpfs ntfs-3g" # AUR
