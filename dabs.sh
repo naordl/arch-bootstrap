@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# TODO:
+# udisks2 for mounting drives and USBs
+# udiskie for automounting
+
 # Vars
 # You can edit these if you prefer, though it's not recommended
 SOURCEDIR="$HOME/.local/src"
 DOTDIR="$SOURCEDIR/dots"
-unset GIT_CONFIG
+unset GIT_CONFIG # Fix a bug with git and paru not working together
 
 #######################
 # PRE-INSTALL SECTION #
