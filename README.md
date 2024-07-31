@@ -1,4 +1,4 @@
-# DABS (Demo's Arch Bootstrapping Script)
+# NABS (Naordl's Arch Bootstrapping Script)
 
 ## Usage
 
