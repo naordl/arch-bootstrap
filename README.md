@@ -1,13 +1,11 @@
-# NABS (Naordl's Arch Bootstrapping Script)
+# RABS (Roland's Arch Bootstrapping Script)
 
-## Usage
-
-### Prerequisites
+## Prerequisites
 - Have a base install of Arch Linux ready, along with a user that has `sudo` privileges.
 - You should place this repository in `$HOME/.local/src/`, to keep your home directory clean.
-- That's also where the script will download my dotfiles by default.
+- That's also the directory where the script will download my dotfiles by default.
 
-### Instructions
-- Make the shell script executable using the following command: `chmod +x dabs.sh`.
-- Execute the script with the following command: `./dabs.sh`.
+## Instructions
+- Make the shell script executable using the following command: `chmod +x rabs.sh`.
+- Execute the script with the following command: `./rabs.sh`.
 - Follow on-screen instructions.
