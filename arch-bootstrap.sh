@@ -21,7 +21,7 @@ parallel_downloads() { \
 }
 parallel_downloads && tput setaf 2; printf "Parallel downloads enabled successfully!\n"; tput sgr0
 
-# Install 'dialog' to aid with the installation
+# Install 'dialog' to aid with the installation process
 install_dialog() { \
 	if [ -z "$(pacman -Qs dialog | grep local/dialog)" ]; then
 	    tput setaf 2; printf "Installing 'dialog' to aid with the installation.\n"; tput sgr0
@@ -30,7 +30,7 @@ install_dialog() { \
 }
 install_dialog
 
-# Clone dotfiles function
+# Define the clone dotfiles function
 clone_dots() { \
 	tput setaf 2; printf "Cloning dotfiles repository.\n"; tput sgr0
 	mkdir -p "$SOURCEDIR"
@@ -77,12 +77,12 @@ check_dotdir
 # INSTALL SECTION #
 ###################
 
-# Update mirrors for faster download speed (you might want to change the country from Romania to something else)
+# Update mirrors for faster download speeds
+# You might want to change the argument for the country
 update_mirrors() { \
 	tput setaf 2; printf "Updating pacman mirrorlist.\n"; tput sgr0
 	sudo pacman -S reflector --noconfirm --needed
 	sudo reflector --verbose -c Romania -a 12 -p https --sort rate --save /etc/pacman.d/mirrorlist
-	#sudo reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 }
 update_mirrors && tput setaf 2; printf "Pacman mirrorlist updated successfully!\n"; tput sgr0
 
@@ -93,7 +93,7 @@ full_system_update() { \
 }
 full_system_update && tput setaf 2; printf "System updated successfully!\n"; tput sgr0
 
-# Install 'base-devel' group
+# Install 'base-devel' package group
 install_base-devel() { \
 	if [ -z "$(pacman -Qs base-devel | grep local/base-devel)" ]; then
 		tput setaf 2; printf "Installing 'base-devel' group.\n"; tput sgr0
@@ -102,7 +102,7 @@ install_base-devel() { \
 }
 install_base-devel && tput setaf 2; printf "'base-devel' installed successfully!\n"; tput sgr0
 
-# Install 'linux-firmware' group
+# Install 'linux-firmware' package group
 install_linux-firmware() { \
 	if [ -z "$(pacman -Qs linux-firmware | grep local/linux-firmware)" ]; then
 		tput setaf 2; printf "Installing 'linux-firmware' group.\n"; tput sgr0
@@ -167,7 +167,8 @@ install_gpu_drivers() { \
 }
 install_gpu_drivers
 
-# Ask user for VirtualBox Guest Utils (if VM)
+# Check if the environment is a Virtual Machine
+# If yes, ask user for VirtualBox Guest Utils
 check_vm() { \
 	if [ -n "$(grep ^flags.*\ hypervisor /proc/cpuinfo)" ]; then
 		install_vmutils() { \
@@ -186,9 +187,10 @@ check_vm() { \
 }
 check_vm
 
-# Ask user for laptop components (if laptop)
+# Check if hte environment is a laptop
+# If yes, ask user for laptop components
 check_laptop() { \
-	if [ -d "/sys/module/battery" ]; then # check for a battery
+	if [ -d "/sys/module/battery" ]; then # Check for a battery
 		cmd=(dialog --separate-output --checklist "Select laptop-specific components to install:" 22 76 16)
 		options=(1 "libinput (Touchpad driver)" on
 			 2 "tlp powertop (Battery tools)" on
@@ -230,7 +232,7 @@ check_laptop() { \
 }
 check_laptop
 
-# Install essential components
+# Install essential packages
 install_essentials() { \
 	displayserver="xorg-server xorg-xinit"
 	audio="pulseaudio pulseaudio-alsa pulseaudio-bluetooth"
@@ -247,7 +249,7 @@ install_essentials() { \
 }
 install_essentials && tput setaf 2; printf "Essential components installed successfully!\n"; tput sgr0
 
-# Install aestethics
+# Install packages for aestethics
 install_aestethics() { \
 	iconfonts="ttf-font-awesome"
 	emojifonts="ttf-joypixels"
@@ -269,27 +271,14 @@ install_aestethics() { \
 	tput setaf 2; printf "Installing themes.\n"; tput sgr0
 	git clone https://github.com/demo2k20/themes.git $SOURCEDIR/themes
 	sudo ln -srv $SOURCEDIR/themes/* /usr/share/themes
-
-	# Install Windows fonts
-	tput setaf 2; printf "Installing Windows fonts.\n"; tput sgr0
-	git clone https://github.com/demo2k20/windowsfonts.git $SOURCEDIR/windowsfonts
-	sudo ln -srv $SOURCEDIR/windowsfonts /usr/share/fonts/windowsfonts
-	sudo chmod 644 /usr/share/fonts/windowsfonts/*
-	sudo fc-cache --force
-
-	# Download my wallpaper collection
-	#tput setaf 2; printf "Cloning wallpapers.\n"; tput sgr0
-	#git clone https://github.com/demo2k20/wallpapers.git $SOURCEDIR/wallpapers
-	#mkdir -pv $HOME/Pictures
-	#ln -srv $SOURCEDIR/wallpapers $HOME/Pictures/Wallpapers
 }
 install_aestethics && tput setaf 2; printf "Aestethic components installed successfully!\n"; tput sgr0
 
 # Install software
 install_software() { \
 	shell="zsh zsh-syntax-highlighting dash dashbinsh" # AUR
-	#terminal="alacritty" # Cloning st build instead
-	#launcher="dmenu" # Cloning dmenu build instead
+	#terminal="alacritty" # Cloning st build instead from my GitHub
+	#launcher="dmenu" # Cloning dmenu build instead from my GitHub
 	notifications="libnotify dunst"
 	browser="firefox"
 	torrent="transmission-cli"
@@ -379,7 +368,7 @@ install_software() { \
 }
 install_software && tput setaf 2; printf "Software installed successfully!\n"; tput sgr0
 
-# Install my script dependencies
+# Install my shell script dependencies
 install_dependencies() { \
 	dependencies="
 	    python-pynvim
@@ -447,15 +436,15 @@ configure_cronie() { \
 }
 configure_cronie && tput setaf 2; printf "Cronie configured successfully!\n"; tput sgr0
 
-# Copy the onboard nvidia graphics card disabler service
+# Create the Nvidia GPU disabler service
 #sudo cp -rv /etc/systemd/system/disablenvidia.service /lib/systemd/system/
 #sudo chmod 644 /etc/systemd/system/disablenvidia.service
 
 # Systemd services
 configure_systemd() { \
     tput setaf 2; printf "Enabling systemd services.\n"; tput sgr0
-    #sudo systemctl enable disablenvidia # TODO: move this to a separate repo, ask the user with dialog of they want it
-    #sudo systemctl enable sshd
+    #sudo systemctl enable disablenvidia # TODO: move this to a separate function, ask the user with 'dialog' if they want it
+    #sudo systemctl enable sshd # For servers
     sudo systemctl enable cronie
     sudo systemctl enable getty@tty1
     sudo systemctl enable bluetooth
@@ -474,7 +463,6 @@ configure_boot() { \
     sudo sed -i "s|GRUB_CMDLINE_LINUX=\"\"|GRUB_CMDLINE_LINUX=\"resume=$partition\"|" /etc/default/grub # Add hibernation partition
     sudo grub-mkconfig -o /boot/grub/grub.cfg # Rebuild grub to apply changes
     sudo mkinitcpio -P # Currently not making any changes to mkinitcpio.conf; but TODO: make a sed command to separately and directly edit the mkinitcpio.conf file instead of having to copy something else over it and to make the necessary changes
-
 }
 configure_boot && tput setaf 2; printf "Boot configured successfully!\n"; tput sgr0
 
@@ -485,11 +473,11 @@ configure_makepkg() { \
 }
 configure_makepkg && tput setaf 2; printf "MAKEPKG configured successfully!\n"; tput sgr0
 
-# Pacman
+# Pacman package manager
 configure_pacman() { \
     tput setaf 2; printf "Configuring Pacman.\n"; tput sgr0
     sudo sed -i 's/#Color/Color/' /etc/pacman.conf # Enable color
-    sudo sed -i 's/#ParallelDownloads.*/ParallelDownloads = 16/' /etc/pacman.conf # Enable parallel downloads
+    sudo sed -i 's/#ParallelDownloads.*/ParallelDownloads = 16/' /etc/pacman.conf # Enable parallel downloads persistently
 
 }
 configure_pacman && tput setaf 2; printf "Pacman configured successfully!\n"; tput sgr0
@@ -497,10 +485,10 @@ configure_pacman && tput setaf 2; printf "Pacman configured successfully!\n"; tp
 # Keyboard layout
 configure_layout() { \
     tput setaf 2; printf "Configuring keyboard layout.\n"; tput sgr0
-    sudo localectl --no-convert set-x11-keymap hu,ro,en "" "" grp:win_space_toggle,caps:swapescape # Enables hu, ro, en layouts, win+space toggles between layotus, swaps capslock with escape
+    sudo localectl --no-convert set-x11-keymap hu,ro,en "" "" grp:win_space_toggle,caps:swapescape # Enables Hungarian, Romanian, and English layouts, Win + Space toggles between layotus, and swaps Capslock with Escape
 }
 configure_layout && tput setaf 2; printf "Keyboard layout configured successfully!\n"; tput sgr0
-# TODO: ask the user for keyboard layouts and run the command based on that
+# TODO: ask the user for keyboard layouts and run the command based on user input
 
 # Done
 tput setaf 2; printf "Configuration successful!\n"; tput sgr0
