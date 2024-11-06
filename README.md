@@ -4,7 +4,7 @@
 
 This is a bootstrapping script intended to deploy a fully configured and personalized Arch Linux user environment from scratch.
 
-It installs my favorite Linux programs and pulls down my [configuration files repository](https://github.com/naordl/dots).
+It installs my favorite Linux programs and pulls down my [configuration files repository](https://github.com/naordl/dotfiles).
 
 ## Screenshots
 
@@ -33,7 +33,7 @@ $ cd ~/.local/src
 $ git clone https://github.com/naordl/arch-bootstrap.git
 ```
 
-This is also the same directory where the bootstrapping script will download my [configuration files repository](https://github.com/naordl/dots) by default.
+This is also the same directory where the bootstrapping script will download my [configuration files repository](https://github.com/naordl/dotfiles) by default.
 
 If you woud like to do things your own way, you may alter the `arch-bootstrap.sh` script according to your preferences.
 

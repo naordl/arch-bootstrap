@@ -7,7 +7,7 @@
 # Vars
 # You can edit these if you prefer, though it's not recommended
 SOURCEDIR="$HOME/.local/src"
-DOTDIR="$SOURCEDIR/dots"
+DOTDIR="$SOURCEDIR/dotfiles"
 unset GIT_CONFIG # Fix a bug with git and paru not working together
 
 #######################
@@ -31,10 +31,10 @@ install_dialog() { \
 install_dialog
 
 # Define the clone dotfiles function
-clone_dots() { \
+clone_dotfiles() { \
 	tput setaf 2; printf "Cloning dotfiles repository.\n"; tput sgr0
 	mkdir -p "$SOURCEDIR"
-	git clone https://github.com/demo2k20/dots.git "$DOTDIR"
+	git clone https://github.com/naordl/dotfiles.git "$DOTDIR"
 }
 
 # Confirm installation
@@ -43,7 +43,7 @@ confirm_install() { \
 	answer=$?
 	clear
 	case $answer in
-	   0) clear && clone_dots;; # Clone dotfiles if user agrees to installation
+	   0) clear && clone_dotfiles;; # Clone dotfiles if user agrees to installation
 	   1) clear && tput setaf 1; printf "Installation aborted by user.\n"; tput sgr0 && exit 1;;
 	   255) clear && tput setaf 1; printf "Installation aborted by user.\n"; tput sgr0 && exit 1;;
 	esac
@@ -53,7 +53,7 @@ confirm_install
 # Exit if $SOURCEDIR does not exist
 check_sourcedir() { \
 	if [ ! -d "$SOURCEDIR" ]; then
-	    dialog --title "ERROR" --msgbox "'"$SOURCEDIR"' directory does not exist.\n\nPlease create it and place the 'dots' directory inside.\n" 7 60
+	    dialog --title "ERROR" --msgbox "'"$SOURCEDIR"' directory does not exist.\n\nPlease create it and place the 'dotfiles' directory inside.\n" 7 60
 	    clear
 	    tput setaf 1; printf "Installation aborted.\n"; tput sgr0
 	    exit 1
@@ -64,7 +64,7 @@ check_sourcedir
 # Exit if $DOTDIR does not exist
 check_dotdir() { \
 	if [ ! -d "$DOTDIR" ]; then
-	    dialog --title "ERROR" --msgbox "'"$DOTDIR"' directory does not exist.\n\nPlease place the 'dots' directory inside of '"$SOURCEDIR"'.\n" 7 90
+	    dialog --title "ERROR" --msgbox "'"$DOTDIR"' directory does not exist.\n\nPlease place the 'dotfiles' directory inside of '"$SOURCEDIR"'.\n" 7 90
 	    clear
 	    tput setaf 1; printf "Installation aborted.\n"; tput sgr0
 	    exit 1
